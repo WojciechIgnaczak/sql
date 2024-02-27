@@ -1,0 +1,6 @@
+Języki SQL
+DDL         DML         TCL         DQL             DCL 
+create      insert      commit     select from      gramt
+drop        update      roulback                    revolk
+alter       delete
+truncate
