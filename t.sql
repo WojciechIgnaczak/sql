@@ -4,8 +4,8 @@ CREATE DATABASE BibliotekaPW;
 use BibliotekaPW;
 CREATE TABLE Autor(
 Autor_ID int primary key IDENTITY (1,1),
-Nazwisko varchar(50),
-Imie varchar(50),
+Nazwisko varchar(50) NOT NULL,
+Imie varchar(50) NOT NULL,
 Biografia varchar(255),
 );
 
@@ -36,14 +36,14 @@ Numer_telefonu varchar(15),
 CREATE TABLE Faktury(
 Faktura_ID int primary key IDENTITY (1,1),
 Kwota int NOT NULL,
-Rodzaj_platnosci varchar(50),
+Rodzaj_platnosci varchar(50) NOT NULL,
 Numer_konta_bankowego varchar(20),
 );
 
 CREATE TABLE Lokalizacja(
 Lokalizacja_ID int primary key IDENTITY (1,1),
-Miasto varchar(50),
-Ulica varchar(50),
+Miasto varchar(50) NOT NULL,
+Ulica varchar(50) NOT NULL,
 Numer varchar(15),
 Kod_pocztowy varchar(6),
 );
@@ -51,14 +51,14 @@ Kod_pocztowy varchar(6),
 CREATE TABLE Godziny_otwarcia(
 Godziny_otwarcia_ID int primary key IDENTITY (1,1),
 Dzien_tygodnia varchar(20),
-Godziny int,
+Godziny varchar(11),
 Status varchar(20),
 );
 
 CREATE TABLE Pracownicy(
 Pracownik_ID int primary key IDENTITY (1,1),
-Numer_telefonu varchar(15),
-Pensja int,
+Numer_telefonu varchar(15) NOT NULL,
+Pensja int NOT NULL,
 Godziny_pracy int,
 Status varchar(50),
 Login varchar(20) UNIQUE,
@@ -76,12 +76,12 @@ CREATE TABLE Books(
 Book_ID int primary key IDENTITY (1,1),
 Autor_ID int,
 Opis varchar(255),
-Tytul varchar(50),
+Tytul varchar(50) NOT NULL,
 Rok_wydania int,
 Wydawnictwo_ID int,
 Kategoria_ID int,
 Recenzja_ID int,
-Ilosc int,
+Ilosc_szt int,
 foreign key (Autor_ID) references Autor(Autor_ID),
 foreign key (Wydawnictwo_ID) references Wydawnictwo(Wydawnictwo_ID),
 foreign key (Kategoria_ID) references Kategoria(Kategoria_ID),
@@ -123,12 +123,12 @@ foreign key (Biblioteka_ID) references Biblioteki(Biblioteka_ID)
 
 CREATE TABLE Uzytkownicy(
 Uzytkownik_ID int primary key IDENTITY (1,1),
-Name varchar(50),
-Email varchar(50),
+Name varchar(50) NOT NULL,
+Email varchar(50) NOT NULL,
 Numer_telefonu varchar(15),
 Status varchar(20),
 Wypozyczenie_ID int,
-Indeks int UNIQUE,
+Indeks int UNIQUE NOT NULL,
 );
 
 CREATE TABLE Zamowienia(
