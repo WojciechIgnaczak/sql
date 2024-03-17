@@ -1,4 +1,5 @@
 use BibliotekaPW;
+
 CREATE TYPE Bank_account_number FROM CHAR(26);
 CREATE TYPE Post_code FROM CHAR(8);
 CREATE TYPE Open_hours FROM CHAR(11); /* -- HH:MM-HH-MM */
