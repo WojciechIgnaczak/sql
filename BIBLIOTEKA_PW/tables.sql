@@ -167,6 +167,7 @@ foreign key (Przedluzenie_ID) references Przedluzenia(Przedluzenie_ID),
 foreign key (Pracownik_ID) references Pracownicy(Pracownik_ID)
 );
 
+
 CREATE TABLE Config(
 Config_ID int primary key IDENTITY (1,1),
 Nazwa varchar(50),
