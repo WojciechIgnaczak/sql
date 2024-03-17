@@ -1,3 +1,5 @@
+use BibliotekaPW;
+Go
 create view Book_view as
 select
 Books.Book_ID,
