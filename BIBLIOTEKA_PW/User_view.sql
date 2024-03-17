@@ -1,3 +1,4 @@
+Create view User_view as
 select
 Uzytkownicy.Uzytkownik_ID,
 Uzytkownicy.Name,

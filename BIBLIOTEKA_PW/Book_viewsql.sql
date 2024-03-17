@@ -1,9 +1,10 @@
+create view Book_view as
 select
 Books.Book_ID,
 Books.Tytul,
 Books.Opis,
 Books.Rok_wydania,
-Books.Ilosc_szt,
+Books.Ilosc,
 Wydawnictwo.Nazwa as Wydawnictwo,
 Kategoria.Nazwa as Kategoria,
 Recenzje.Ocena,
