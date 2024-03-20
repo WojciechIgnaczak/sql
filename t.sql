@@ -1,7 +1,18 @@
 use master;
 CREATE DATABASE BibliotekaPW;
+GO
 
 use BibliotekaPW;
+GO
+
+CREATE TYPE Bank_account_number FROM VARCHAR(26);
+CREATE TYPE Phone_number FROM VARCHAR(15); --15 bo w wielu krajach moze byc inna liczba znakow, jednak max=15
+CREATE TYPE Post_code FROM VARCHAR(8);
+CREATE TYPE Open_hours FROM VARCHAR(11) -- HH:MM-HH-MM
+
+use BibliotekaPW;
+GO
+
 CREATE TABLE Autor(
 Autor_ID int primary key IDENTITY (1,1),
 Nazwisko varchar(50) NOT NULL,
@@ -30,14 +41,14 @@ CREATE TABLE Dostawcy(
 Dostawca_ID int primary key IDENTITY (1,1),
 Nazwa_firmy varchar(50),
 Adres varchar(255),
-Numer_telefonu varchar(15),
+Numer_telefonu Phone_number,
 );
 
 CREATE TABLE Faktury(
 Faktura_ID int primary key IDENTITY (1,1),
 Kwota int NOT NULL,
 Rodzaj_platnosci varchar(50) NOT NULL,
-Numer_konta_bankowego varchar(20),
+Numer_konta_bankowego  Bank_account_number,
 );
 
 CREATE TABLE Lokalizacja(
@@ -45,19 +56,19 @@ Lokalizacja_ID int primary key IDENTITY (1,1),
 Miasto varchar(50) NOT NULL,
 Ulica varchar(50) NOT NULL,
 Numer varchar(15),
-Kod_pocztowy varchar(6),
+Kod_pocztowy Post_code,
 );
 
 CREATE TABLE Godziny_otwarcia(
 Godziny_otwarcia_ID int primary key IDENTITY (1,1),
 Dzien_tygodnia varchar(20),
-Godziny varchar(11),
+Godziny Open_hours,
 Status varchar(20),
 );
 
 CREATE TABLE Pracownicy(
 Pracownik_ID int primary key IDENTITY (1,1),
-Numer_telefonu varchar(15) NOT NULL,
+Numer_telefonu Phone_number NOT NULL,
 Pensja int NOT NULL,
 Godziny_pracy int,
 Status varchar(50),
@@ -81,7 +92,7 @@ Rok_wydania int,
 Wydawnictwo_ID int,
 Kategoria_ID int,
 Recenzja_ID int,
-Ilosc_szt int,
+Ilosc int,
 foreign key (Autor_ID) references Autor(Autor_ID),
 foreign key (Wydawnictwo_ID) references Wydawnictwo(Wydawnictwo_ID),
 foreign key (Kategoria_ID) references Kategoria(Kategoria_ID),
@@ -125,7 +136,7 @@ CREATE TABLE Uzytkownicy(
 Uzytkownik_ID int primary key IDENTITY (1,1),
 Name varchar(50) NOT NULL,
 Email varchar(50) NOT NULL,
-Numer_telefonu varchar(15),
+Numer_telefonu Phone_number,
 Status varchar(20),
 Wypozyczenie_ID int,
 Indeks int UNIQUE NOT NULL,
@@ -175,3 +186,48 @@ Nazwa varchar(50),
 Wartosc int,
 DataModyfikacji datetime
 );
+
+
+use BibliotekaPW;
+Go
+Create view Book_view as
+select
+Books.Book_ID,
+Books.Tytul,
+Books.Opis,
+Books.Rok_wydania,
+Books.Ilosc,
+Wydawnictwo.Nazwa as Wydawnictwo,
+Kategoria.Nazwa as Kategoria,
+Recenzje.Ocena,
+Recenzje.Opinia
+from Books
+Left join 
+Wydawnictwo on Books.Wydawnictwo_ID=Wydawnictwo.Wydawnictwo_ID
+Left join
+Kategoria on Books.Kategoria_ID=Kategoria.Kategoria_ID
+Left join
+Recenzje on Books.Recenzja_ID=Recenzje.Recenzja_ID
+
+use BibliotekaPW;
+Go
+Create view User_view as
+select
+Uzytkownicy.Uzytkownik_ID,
+Uzytkownicy.Name,
+Uzytkownicy.Email,
+Uzytkownicy.Numer_telefonu,
+Uzytkownicy.Status,
+Uzytkownicy.Indeks,
+Books.Tytul,
+Wypozyczenia.Wypozyczenie_ID,
+Wypozyczenia.Data_wypozyczenia,
+Wypozyczenia.Data_zwrotu,
+Wypozyczenia.Czas_wypozyczenia
+from Uzytkownicy
+Left join
+Wypozyczenia on Uzytkownicy.Uzytkownik_ID=Wypozyczenia.Uzytkownik_ID
+Left join
+Ksiazka_elementarna on Wypozyczenia.Unikalna_ksiazka_ID=Ksiazka_elementarna.Unikalna_ksiazka_ID
+Left join
+Books on Ksiazka_elementarna.Book_ID=Books.Tytul
