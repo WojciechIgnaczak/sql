@@ -46,7 +46,7 @@ Phone_number Phone_number,
 
 CREATE TABLE Invoices(
 Invoice_ID int primary key IDENTITY (1,1),
-Amount int NOT NULL,
+Amount int NOT NULL CHECK(Amount >0),
 Payment varchar(50) NOT NULL,
 Bank_account_number  Bank_account_number,
 );
@@ -55,7 +55,7 @@ CREATE TABLE Locations(
 Location_ID int primary key IDENTITY (1,1),
 City varchar(50) NOT NULL,
 Street varchar(50) NOT NULL,
-Number varchar(15),
+Number varchar(15) CHECK(Number >0),
 Post_code Post_code,
 );
 
@@ -69,17 +69,17 @@ Status varchar(20),
 CREATE TABLE Employees(
 Employee_ID int primary key IDENTITY (1,1),
 Phone_number Phone_number NOT NULL,
-Salary int NOT NULL,
-Working_hours int,
+Salary int NOT NULL CHECK(Salary >0),
+Working_hours int CHECK(Working_hours >0),
 Status varchar(50),
 Login varchar(20) UNIQUE,
-Password varchar(20) UNIQUE,
+Password varchar(20)
 );
 
 CREATE TABLE Extensions(
 Extension_ID int primary key IDENTITY (1,1),
 Date_of_extension datetime  NOT NULL,
-Numbers_of_days int NOT NULL,
+Numbers_of_days int NOT NULL CHECK(Numbers_of_days >=0),
 Type varchar(20),
 );
 
@@ -88,11 +88,11 @@ Book_ID int primary key IDENTITY (1,1),
 Author_ID int,
 Description varchar(255),
 Title varchar(50) NOT NULL,
-Publishing_year int,
+Publishing_year int CHECK(Publishing_year >0),
 Publishing_house_ID int,
 Category_ID int,
 Review_ID int,
-Numbers_of_books int,
+Numbers_of_books int CHECK(Numbers_of_books >=0),
 foreign key (Author_ID) references Authors(Author_ID),
 foreign key (Publishing_house_ID) references Publishing_houses(Publishing_house_ID),
 foreign key (Category_ID) references Categories(Category_ID),
@@ -127,7 +127,7 @@ Elementary_book_ID int primary key IDENTITY (1,1),
 Book_ID int,
 Library_ID int,
 Status varchar(20),
-Wear int,
+Wear int CHECK(Wear >0),
 foreign key (Book_ID) references Books(Book_ID),
 foreign key (Library_ID) references Libraries(Library_ID)
 );
@@ -147,7 +147,7 @@ Order_ID int primary key IDENTITY (1,1),
 Elementary_book_ID int,
 User_ID int,
 Date datetime,
-Pickup_time int,
+Pickup_time int CHECK(Pickup_time >=0),
 foreign key (User_ID) references Users(User_ID),
 foreign key (Elementary_book_ID) references Elementary_books(Elementary_book_ID)
 );
@@ -169,7 +169,7 @@ User_ID int,
 Elementary_book_ID int,
 Rent_date datetime  NOT NULL,
 Return_date date NOT NULL,
-Rental_time int,
+Rental_time int CHECK(Rental_time >0),
 Order_ID int,
 Extension_ID int,
 Employee_ID int,
