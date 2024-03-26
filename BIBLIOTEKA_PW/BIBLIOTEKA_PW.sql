@@ -1,233 +1,242 @@
-use master;
-CREATE DATABASE LibraryPW;
+USE master;
+CREATE DATABASE LibraryPW2;
 GO
 
-use LibraryPW;
+USE LibraryPW2;
 GO
 
 CREATE TYPE Bank_account_number FROM VARCHAR(26);
 CREATE TYPE Phone_number FROM VARCHAR(15); --15 bo w wielu krajach moze byc inna liczba znakow, jednak max=15
 CREATE TYPE Post_code FROM VARCHAR(8);
-CREATE TYPE Open_hours FROM VARCHAR(11) -- HH:MM-HH-MM
+CREATE TYPE Open_hours FROM VARCHAR(11); -- HH:MM-HH:MM
 
-use LibraryPW;
+USE LibraryPW2;
 GO
 
 CREATE TABLE Authors(
-Author_ID int primary key IDENTITY (1,1),
-Surename varchar(50) NOT NULL,
-Name varchar(50) NOT NULL,
-Biography varchar(255),
+author_id INT PRIMARY KEY IDENTITY (1,1),
+surename VARCHAR(50) NOT NULL,
+name VARCHAR(50) NOT NULL,
+biography NTEXT,
+username VARCHAR(50)
+);
+
+CREATE TABLE Status(
+status_id INT PRIMARY KEY IDENTITY(1,1),
+kind_of_status CHAR(50)
 );
 
 CREATE TABLE Publishing_houses(
-Publishing_house_ID int primary key IDENTITY (1,1),
-Name varchar(50),
+publishing_house_id INT PRIMARY KEY IDENTITY (1,1),
+name VARCHAR(50)
 );
 
 CREATE TABLE Categories(
-Category_ID int primary key IDENTITY (1,1),
-Name varchar(50),
+category_id INT PRIMARY KEY IDENTITY (1,1),
+name VARCHAR(50)
 );
 
 CREATE TABLE Reviews(
-Review_ID int primary key IDENTITY (1,1),
-Mark int NOT NULL,
-Review varchar(255),
-Hide int,
+review_id INT PRIMARY KEY IDENTITY (1,1),
+mark INT NOT NULL CHECK (mark BETWEEN 1 AND 5),
+review VARCHAR(255),
+hide INT
 );
 
 CREATE TABLE Providers(
-Provider_ID int primary key IDENTITY (1,1),
-Company_name varchar(50),
-Adres varchar(255),
-Phone_number Phone_number,
+provider_id INT PRIMARY KEY IDENTITY (1,1),
+company_name VARCHAR(50),
+adres VARCHAR(255),
+phone_number Phone_number
 );
 
 CREATE TABLE Invoices(
-Invoice_ID int primary key IDENTITY (1,1),
-Amount int NOT NULL CHECK(Amount >0),
-Payment varchar(50) NOT NULL,
-Bank_account_number  Bank_account_number,
+invoice_id INT PRIMARY KEY IDENTITY (1,1),
+amount INT NOT NULL CHECK(amount > 0),
+payment VARCHAR(50) NOT NULL,
+bank_account_number Bank_account_number
 );
 
 CREATE TABLE Locations(
-Location_ID int primary key IDENTITY (1,1),
-City varchar(50) NOT NULL,
-Street varchar(50) NOT NULL,
-Number varchar(15) CHECK(Number >0),
-Post_code Post_code,
+location_id INT PRIMARY KEY IDENTITY (1,1),
+city VARCHAR(50) NOT NULL,
+street VARCHAR(50) NOT NULL,
+number VARCHAR(10), -- 999/BBB/999
+post_code Post_code
 );
 
 CREATE TABLE Open_hours(
-Open_hour_ID int primary key IDENTITY (1,1),
-Day_of_week varchar(20),
-Hours Open_hours,
-Status varchar(20),
+open_hour_id INT PRIMARY KEY IDENTITY (1,1),
+day_of_week VARCHAR(20),
+hours Open_hours
 );
 
 CREATE TABLE Employees(
-Employee_ID int primary key IDENTITY (1,1),
-Phone_number Phone_number NOT NULL,
-Salary int NOT NULL CHECK(Salary >0),
-Working_hours int CHECK(Working_hours >0),
-Status varchar(50),
-Login varchar(20) UNIQUE,
-Password varchar(20)
+employee_id INT PRIMARY KEY IDENTITY (1,1),
+phone_number Phone_number NOT NULL,
+salary INT NOT NULL CHECK(salary > 0),
+working_hours INT CHECK(working_hours > 0),
+status_id INT,
+login VARCHAR(20) UNIQUE,
+password VARCHAR(100),
+FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
 
 CREATE TABLE Extensions(
-Extension_ID int primary key IDENTITY (1,1),
-Date_of_extension datetime  NOT NULL,
-Numbers_of_days int NOT NULL CHECK(Numbers_of_days >=0),
-Type varchar(20),
+extension_id INT PRIMARY KEY IDENTITY (1,1),
+date_of_extension DATETIME  NOT NULL,
+numbers_of_days INT NOT NULL CHECK(numbers_of_days >= 0),
+type VARCHAR(20)
 );
 
 CREATE TABLE Books(
-Book_ID int primary key IDENTITY (1,1),
-Author_ID int,
-Description varchar(255),
-Title varchar(50) NOT NULL,
-Publishing_year int CHECK(Publishing_year >0),
-Publishing_house_ID int,
-Category_ID int,
-Review_ID int,
-Numbers_of_books int CHECK(Numbers_of_books >=0),
-foreign key (Author_ID) references Authors(Author_ID),
-foreign key (Publishing_house_ID) references Publishing_houses(Publishing_house_ID),
-foreign key (Category_ID) references Categories(Category_ID),
-foreign key (Review_ID) references Reviews(Review_ID)
+book_id INT PRIMARY KEY IDENTITY (1,1),
+author_id INT,
+description VARCHAR(255),
+title VARCHAR(50) NOT NULL,
+publishing_year INT CHECK(publishing_year > 0),
+publishing_house_id INT,
+category_id INT,
+review_id INT,
+numbers_of_books INT CHECK(numbers_of_books >= 0),
+FOREIGN KEY (author_id) REFERENCES Authors(author_id),
+FOREIGN KEY (publishing_house_id) REFERENCES Publishing_houses(publishing_house_id),
+FOREIGN KEY (category_id) REFERENCES Categories(category_id),
+FOREIGN KEY (review_id) REFERENCES Reviews(review_id)
 );
 
 CREATE TABLE Deliveries(
-Delivery_ID int primary key IDENTITY (1,1),
-Book_ID int,
-Provider_ID int,
-Date_of_order datetime,
-Order_status varchar(20),   
-Invoice_ID int  NOT NULL,
-foreign key (Book_ID) references Books(Book_ID),
-foreign key (Provider_ID) references Providers(Provider_ID),
-foreign key (Invoice_ID) references Invoices(Invoice_ID)
+delivery_id INT PRIMARY KEY IDENTITY (1,1),
+book_id INT,
+provider_id INT,
+date_of_order DATETIME,
+status_id INT,
+invoice_id INT NOT NULL,
+FOREIGN KEY (book_id) REFERENCES Books(book_id),
+FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
+FOREIGN KEY (invoice_id) REFERENCES Invoices(invoice_id),
+FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
 
 CREATE TABLE Libraries(
-Library_ID int primary key IDENTITY (1,1),
-Name varchar(50),
-Location_ID int,
-Open_hour_ID int,
-Employee_ID int,
-foreign key (Location_ID) references Locations(Location_ID),
-foreign key (Open_hour_ID) references Open_hours(Open_hour_ID),
-foreign key (Employee_ID) references Employees(Employee_ID)
+library_id INT PRIMARY KEY IDENTITY (1,1),
+name VARCHAR(50),
+location_id INT,
+open_hour_id INT,
+employee_id INT,
+FOREIGN KEY (location_id) REFERENCES Locations(location_id),
+FOREIGN KEY (open_hour_id) REFERENCES Open_hours(open_hour_id),
+FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
 CREATE TABLE Elementary_books(
-Elementary_book_ID int primary key IDENTITY (1,1),
-Book_ID int,
-Library_ID int,
-Status varchar(20),
-Wear int CHECK(Wear >0),
-foreign key (Book_ID) references Books(Book_ID),
-foreign key (Library_ID) references Libraries(Library_ID)
+elementary_book_id INT PRIMARY KEY IDENTITY (1,1),
+book_id INT,
+library_id INT,
+status_id INT,
+wear INT CHECK(wear > 0),
+FOREIGN KEY (book_id) REFERENCES Books(book_id),
+FOREIGN KEY (library_id) REFERENCES Libraries(library_id),
+FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
 
 CREATE TABLE Users(
-User_ID int primary key IDENTITY (1,1),
-Name varchar(50) NOT NULL,
-Email varchar(50) NOT NULL,
-Phone_number Phone_number,
-Status varchar(20),
-Rent_ID int,
-Indeks int UNIQUE NOT NULL,
+user_id INT PRIMARY KEY IDENTITY (1,1),
+name VARCHAR(50) NOT NULL,
+email VARCHAR(256) NOT NULL,
+phone_number Phone_number,
+status_id INT,
+rent_id INT,
+indeks INT UNIQUE NOT NULL,
+FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
 
 CREATE TABLE Orders(
-Order_ID int primary key IDENTITY (1,1),
-Elementary_book_ID int,
-User_ID int,
-Date datetime,
-Pickup_time int CHECK(Pickup_time >=0),
-foreign key (User_ID) references Users(User_ID),
-foreign key (Elementary_book_ID) references Elementary_books(Elementary_book_ID)
+order_id INT PRIMARY KEY IDENTITY (1,1),
+elementary_book_id INT,
+user_id INT,
+date DATETIME,
+pickup_time INT CHECK(pickup_time >= 0),
+FOREIGN KEY (user_id) REFERENCES Users(user_id),
+FOREIGN KEY (elementary_book_id) REFERENCES Elementary_books(elementary_book_id)
 );
 
 CREATE TABLE Notifications(
-Notification_ID int primary key IDENTITY (1,1),
-Notification_type varchar(50),
-Extension_ID int,
-Date datetime,
-Content varchar(255),
-User_ID int,
-foreign key (Extension_ID) references Extensions(Extension_ID),
-foreign key (User_ID) references Users(User_ID)
+notification_id INT PRIMARY KEY IDENTITY (1,1),
+notification_type VARCHAR(50),
+extension_id INT,
+date DATETIME,
+content VARCHAR(255),
+user_id INT,
+FOREIGN KEY (extension_id) REFERENCES Extensions(extension_id),
+FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE Rents(
-Rent_ID int primary key IDENTITY (1,1),
-User_ID int,
-Elementary_book_ID int,
-Rent_date datetime  NOT NULL,
-Return_date date NOT NULL,
-Rental_time int CHECK(Rental_time >0),
-Order_ID int,
-Extension_ID int,
-Employee_ID int,
-foreign key (User_ID) references Users(User_ID),
-foreign key (Elementary_book_ID) references Elementary_books(Elementary_book_ID),
-foreign key (Order_ID) references Orders(Order_ID),
-foreign key (Extension_ID) references Extensions(Extension_ID),
-foreign key (Employee_ID) references Employees(Employee_ID)
+rent_id INT PRIMARY KEY IDENTITY (1,1),
+user_id INT,
+elementary_book_id INT,
+rent_date DATETIME NOT NULL,
+return_date DATE NOT NULL,
+rental_time INT CHECK(rental_time > 0),
+order_id INT,
+extension_id INT,
+employee_id INT,
+FOREIGN KEY (user_id) REFERENCES Users(user_id),
+FOREIGN KEY (elementary_book_id) REFERENCES Elementary_books(elementary_book_id),
+FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+FOREIGN KEY (extension_id) REFERENCES Extensions(extension_id),
+FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
 CREATE TABLE Config(
-Config_ID int primary key IDENTITY (1,1),
-Name varchar(50),
-Value int,
-Modification_date datetime
+config_id INT PRIMARY KEY IDENTITY (1,1),
+name VARCHAR(50),
+value INT,
+modification_date DATETIME
 );
 
+USE LibraryPW2;
+GO
 
-use LibraryPW;
-Go
-Create view Book_view as
-select
-Books.Book_ID,
-Books.Title,
-Books.Description,
-Books.Publishing_year,
-Books.Numbers_of_books,
-Publishing_houses.Name as Publishing_house,
-Categories.Name as Category,
-Reviews.Mark,
-Reviews.Review
-from Books
-Left join 
-Publishing_houses on Books.Publishing_house_ID=Publishing_houses.Publishing_house_ID
-Left join
-Categories on Books.Category_ID=Categories.Category_ID
-Left join
-Reviews on Books.Review_ID=Reviews.Review_ID
+CREATE VIEW Book_view AS
+SELECT
+books.book_id,
+books.title,
+books.description,
+books.publishing_year,
+books.numbers_of_books,
+publishing_houses.name AS publishing_house,
+categories.name AS category,
+reviews.mark,
+reviews.review
+FROM books
+LEFT JOIN 
+publishing_houses ON books.publishing_house_id = publishing_houses.publishing_house_id
+LEFT JOIN
+categories ON books.category_id = categories.category_id
+LEFT JOIN
+reviews ON books.review_id = reviews.review_id;
 
+GO
 
-Go
-Create view User_view as
-select
-Users.User_ID,
-Users.Name,
-Users.Email,
-Users.Phone_number,
-Users.Status,
-Users.Indeks,
-Books.Title,
-Rents.Rent_ID,
-Rents.Rent_date,
-Rents.Return_date,
-Rents.Rental_time
-from Users
-Left join
-Rents on Users.User_ID=Rents.User_ID
-Left join
-Elementary_books on Rents.Elementary_book_ID=Elementary_books.Elementary_book_ID
-Left join
-Books on Elementary_books.Book_ID=Books.Title
+CREATE VIEW User_view AS
+SELECT
+Users.user_id,
+Users.name,
+Users.email,
+Users.phone_number,
+Users.status_id,
+Users.indeks,
+Books.title,
+Rents.rent_id,
+Rents.rent_date,
+Rents.return_date,
+Rents.rental_time
+FROM Users
+LEFT JOIN
+Rents ON Users.user_id = Rents.user_id
+LEFT JOIN
+Elementary_books ON Rents.elementary_book_id = Elementary_books.elementary_book_id
+LEFT JOIN
+Books ON Elementary_books.book_id = Books.book_id;
