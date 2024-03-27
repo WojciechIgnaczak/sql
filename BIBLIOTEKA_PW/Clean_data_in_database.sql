@@ -1,3 +1,5 @@
+use LibraryPW;
+GO
 -- Wyłącz ograniczenia klucza obcego
 EXEC sp_MSforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';
 
