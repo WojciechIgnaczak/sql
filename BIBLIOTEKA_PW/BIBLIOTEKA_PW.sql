@@ -21,7 +21,7 @@ biography NTEXT,
 username VARCHAR(50)
 );
 
-CREATE TABLE Status(-- employees,deliveries,elementary_books, users
+CREATE TABLE Status(-- 1,2-employees, 3,4-deliveries, 5,6-elementary_books, 7,8,9-users, 10,11-invoices
 status_id INT PRIMARY KEY IDENTITY(1,1),
 kind_of_status CHAR(50)
 );
@@ -46,7 +46,7 @@ phone_number phone_number
 CREATE TABLE Invoices(
 invoice_id INT PRIMARY KEY IDENTITY (1,1),
 amount INT NOT NULL CHECK(amount > 0),
-status_id int,
+status_id int CHECK(status_id in(10,11)),
 bank_account_number bank_account_number
 FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
@@ -100,7 +100,7 @@ delivery_id INT PRIMARY KEY IDENTITY (1,1),
 book_id INT,
 provider_id INT,
 date_of_order DATETIME,
-status_id INT,
+status_id INT CHECK(status_id in(3,4)),
 invoice_id INT NOT NULL,
 FOREIGN KEY (book_id) REFERENCES Books(book_id),
 FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
@@ -124,7 +124,7 @@ surename varchar(100),
 phone_number phone_number NOT NULL,
 salary INT NOT NULL CHECK(salary > 0),
 working_hours_per_day INT CHECK(working_hours_per_day > 0),
-status_id INT,
+status_id INT CHECK(status_id in(1,2)),
 login VARCHAR(20) UNIQUE,
 password VARCHAR(100),
 library_id int
@@ -136,7 +136,7 @@ CREATE TABLE Elementary_books(
 elementary_book_id INT PRIMARY KEY IDENTITY (1,1),
 book_id INT,
 library_id INT,
-status_id INT,
+status_id INT CHECK(status_id in(5,6)),
 wear INT CHECK(wear > 0),
 FOREIGN KEY (book_id) REFERENCES Books(book_id),
 FOREIGN KEY (library_id) REFERENCES Libraries(library_id),
@@ -148,7 +148,7 @@ user_id INT PRIMARY KEY IDENTITY (1,1),
 name VARCHAR(50) NOT NULL,
 email VARCHAR(256) NOT NULL,
 phone_number phone_number,
-status_id INT,
+status_id INT CHECK(status_id in(7,8,9)),
 indeks INT UNIQUE NOT NULL,
 FOREIGN KEY (status_id) REFERENCES Status(status_id)
 );
