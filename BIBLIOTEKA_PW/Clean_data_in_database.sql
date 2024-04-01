@@ -56,8 +56,8 @@ DELETE FROM Extensions;
 DBCC CHECKIDENT ('Extensions', RESEED, 0);
 
 -- Usuń dane z tabeli Open_hours
-DELETE FROM Open_hours;
-DBCC CHECKIDENT ('Open_hours', RESEED, 0);
+DELETE FROM Open_hours_per_day;
+DBCC CHECKIDENT ('Open_hours_per_day', RESEED, 0);
 
 -- Usuń dane z tabeli Invoices
 DELETE FROM Invoices;

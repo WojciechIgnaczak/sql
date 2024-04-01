@@ -59,12 +59,6 @@ number VARCHAR(10), -- 999/BBB/999
 post_code post_code
 );
 
-CREATE TABLE Open_hours(
-open_hour_id INT PRIMARY KEY IDENTITY (1,1),
-hours open_hours
-);
-
-
 CREATE TABLE Extensions(
 extension_id INT PRIMARY KEY IDENTITY (1,1),
 date_of_extension DATETIME  NOT NULL,
@@ -112,9 +106,17 @@ CREATE TABLE Libraries(
 library_id INT PRIMARY KEY IDENTITY (1,1),
 name VARCHAR(100),
 location_id INT,
-open_hour_id INT,
 FOREIGN KEY (location_id) REFERENCES Locations(location_id),
 FOREIGN KEY (open_hour_id) REFERENCES Open_hours(open_hour_id),
+);
+
+CREATE TABLE Open_hours_per_day (
+open_hour_per_day_id INT PRIMARY KEY IDENTITY(1,1),
+library_id INT,
+day_of_week VARCHAR(10),
+open_time TIME,
+close_time TIME,
+FOREIGN KEY (library_id) REFERENCES Libraries(library_id)
 );
 
 CREATE TABLE Employees(
@@ -136,7 +138,7 @@ CREATE TABLE Elementary_books(
 elementary_book_id INT PRIMARY KEY IDENTITY (1,1),
 book_id INT,
 library_id INT,
-status_id INT CHECK(status_id in(5,6)),
+status_id INT CHECK(status_id in(5,6)),-- 5- 6-
 wear INT CHECK(wear > 0),
 FOREIGN KEY (book_id) REFERENCES Books(book_id),
 FOREIGN KEY (library_id) REFERENCES Libraries(library_id),
@@ -242,3 +244,24 @@ LEFT JOIN
 Elementary_books ON Rents.elementary_book_id = Elementary_books.elementary_book_id
 LEFT JOIN
 Books ON Elementary_books.book_id = Books.book_id;
+
+
+GO
+
+CREATE VIEW Library_view AS
+SELECT
+Libraries.library_id,
+Libraries.name AS library_name,
+Locations.city,
+Locations.street,
+Locations.number,
+Locations.post_code,
+Open_hours_per_day.day_of_week,
+Open_hours_per_day.open_time,
+Open_hours_per_day.close_time
+FROM
+Libraries
+JOIN
+Locations ON Libraries.location_id = Locations.location_id
+LEFT JOIN
+Open_hours_per_day ON Libraries.library_id = Open_hours_per_day.library_id;

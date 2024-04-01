@@ -139,14 +139,6 @@ INSERT INTO Invoices (amount, status_id, bank_account_number) VALUES
 (360.75, '11', 'PL63102000580000002700231268');
 
 
-INSERT INTO Open_hours (hours) VALUES
-('7:00-15:00'),
-('8:00-16:00'),
-('9:00-17:00'),
-('10:00-18:00'),
-('6:00-22:00');
-
-
 INSERT INTO Extensions (date_of_extension, numbers_of_days) VALUES
 ('2024-03-01', 7),
 ('2024-03-02', 5),
@@ -449,27 +441,185 @@ INSERT INTO Locations (city, street, number, post_code) VALUES
 ('Warszawa', 'Narbutta ','84', '02-524');
 
 
+INSERT INTO Libraries (name, location_id) VALUES
+('Biblioteka Główna Politechniki Warszawskiej', 1),--1
+('Biblioteka Terenu Południowego', 2),
+('Biblioteka Wydziału Chemicznego', 3),
+('Biblioteka Politechniki Warszawskiej Filia w Płocku', 4),
+('Biblioteka Wydziału Architektury', 5),--5
+('Biblioteka Wydziału Elektroniki i Technik Informacyjnych', 6),
+('Biblioteka Wydziału Elektrycznego', 7),
+('Biblioteka Wydziału Fizyki', 7),
+('Biblioteka Wydziału Instalacji Budowlanych, Hydrotechniki i Inżynierii Środowiska', 8),
+('Biblioteka Wydziału Inżynierii Chemicznej i Procesowej', 9),--10
+('Biblioteka Wydziału Inżynierii Lądowej', 10),
+('Biblioteka Wydziału Inżynierii Materiałowej', 11),
+('Biblioteka Wydziału Matematyki i Nauk Informacyjnych', 7),
+('Biblioteka Wydziału Mechanicznego Energetyki i Lotnictwa', 12),
+('Biblioteka Wydziału Mechanicznego Technologicznego', 14),--15
+('Biblioteka Wydziału Mechatroniki', 15),
+('Biblioteka Wydziału Samochodów i Maszyn Roboczych', 16),
+('Biblioteka Wydziału Transportu', 7);
 
-INSERT INTO Libraries (name, location_id, open_hour_id) VALUES
-('Biblioteka Główna Politechniki Warszawskiej', 1, 4),
-('Biblioteka Terenu Południowego', 2, 1),
-('Biblioteka Wydziału Chemicznego', 3, 2),
-('Biblioteka Politechniki Warszawskiej Filia w Płocku', 4, 2),
-('Biblioteka Wydziału Architektury', 5, 3),
-('Biblioteka Wydziału Elektroniki i Technik Informacyjnych', 6, 4),
-('Biblioteka Wydziału Elektrycznego', 7, 3),
-('Biblioteka Wydziału Fizyki', 7, 2),
-('Biblioteka Wydziału Instalacji Budowlanych, Hydrotechniki i Inżynierii Środowiska', 8, 1),
-('Biblioteka Wydziału Inżynierii Chemicznej i Procesowej', 9, 2),
-('Biblioteka Wydziału Inżynierii Lądowej', 10, 4),
-('Biblioteka Wydziału Inżynierii Materiałowej', 11, 5),
-('Biblioteka Wydziału Matematyki i Nauk Informacyjnych', 7, 1),
-('Biblioteka Wydziału Mechanicznego Energetyki i Lotnictwa', 12, 3),
-('Biblioteka Wydziału Mechanicznego Technologicznego', 14, 2),
-('Biblioteka Wydziału Mechatroniki', 15, 1),
-('Biblioteka Wydziału Samochodów i Maszyn Roboczych', 16, 4),
-('Biblioteka Wydziału Transportu', 7, 3);
 
+INSERT INTO Open_hours_per_day (library_id, day_of_week, open_time, close_time)
+VALUES
+-- Godziny otwarcia dla biblioteki 1
+(1, 'Monday', '09:00', '17:00'),
+(1, 'Tuesday', '09:00', '17:00'),
+(1, 'Wednesday', '09:00', '17:00'),
+(1, 'Thursday', '09:00', '17:00'),
+(1, 'Friday', '09:00', '17:00'),
+(1, 'Saturday', '10:00', '16:00'),
+(1, 'Sunday', '12:00', '15:00'),
+
+-- Godziny otwarcia dla biblioteki 2
+(2, 'Monday', '08:00', '16:00'),
+(2, 'Tuesday', '08:00', '16:00'),
+(2, 'Wednesday', '08:00', '16:00'),
+(2, 'Thursday', '08:00', '16:00'),
+(2, 'Friday', '08:00', '16:00'),
+(2, 'Saturday', '09:00', '13:00'),
+(2, 'Sunday', '10:00', '14:00'),
+
+-- Godziny otwarcia dla biblioteki 3
+(3, 'Monday', '09:00', '17:00'),
+(3, 'Tuesday', '09:00', '17:00'),
+(3, 'Wednesday', '09:00', '17:00'),
+(3, 'Thursday', '09:00', '17:00'),
+(3, 'Friday', '09:00', '17:00'),
+(3, 'Saturday', '09:00', '13:00'),
+(3, 'Sunday', '10:00', '14:00'),
+-- Godziny otwarcia dla biblioteki 4
+(4, 'Monday', '10:00', '18:00'),
+(4, 'Tuesday', '10:00', '18:00'),
+(4, 'Wednesday', '10:00', '18:00'),
+(4, 'Thursday', '10:00', '18:00'),
+(4, 'Friday', '10:00', '18:00'),
+(4, 'Saturday', '11:00', '15:00'),
+(4, 'Sunday', '12:00', '16:00'),
+
+-- Godziny otwarcia dla biblioteki 5
+(5, 'Monday', '08:30', '16:30'),
+(5, 'Tuesday', '08:30', '16:30'),
+(5, 'Wednesday', '08:30', '16:30'),
+(5, 'Thursday', '08:30', '16:30'),
+(5, 'Friday', '08:30', '16:30'),
+(5, 'Saturday', '09:30', '14:30'),
+(5, 'Sunday', '10:30', '15:30'),
+
+-- Godziny otwarcia dla biblioteki 6
+(6, 'Monday', '09:30', '17:30'),
+(6, 'Tuesday', '09:30', '17:30'),
+(6, 'Wednesday', '09:30', '17:30'),
+(6, 'Thursday', '09:30', '17:30'),
+(6, 'Friday', '09:30', '17:30'),
+(6, 'Saturday', '10:30', '15:30'),
+(6, 'Sunday', '11:30', '16:30'),
+-- Godziny otwarcia dla biblioteki 7
+(7, 'Monday', '09:00', '17:00'),
+(7, 'Tuesday', '09:00', '17:00'),
+(7, 'Wednesday', '09:00', '17:00'),
+(7, 'Thursday', '09:00', '17:00'),
+(7, 'Friday', '09:00', '17:00'),
+(7, 'Saturday', '10:00', '15:00'),
+(7, 'Sunday', '11:00', '16:00'),
+
+-- Godziny otwarcia dla biblioteki 8
+(8, 'Monday', '08:00', '16:00'),
+(8, 'Tuesday', '08:00', '16:00'),
+(8, 'Wednesday', '08:00', '16:00'),
+(8, 'Thursday', '08:00', '16:00'),
+(8, 'Friday', '08:00', '16:00'),
+(8, 'Saturday', '09:00', '14:00'),
+(8, 'Sunday', '10:00', '15:00'),
+
+-- Godziny otwarcia dla biblioteki 9
+(9, 'Monday', '09:30', '17:30'),
+(9, 'Tuesday', '09:30', '17:30'),
+(9, 'Wednesday', '09:30', '17:30'),
+(9, 'Thursday', '09:30', '17:30'),
+(9, 'Friday', '09:30', '17:30'),
+(9, 'Saturday', '10:30', '15:30'),
+(9, 'Sunday', '11:30', '16:30'),
+-- Godziny otwarcia dla biblioteki 10
+(10, 'Monday', '09:00', '17:00'),
+(10, 'Tuesday', '09:00', '17:00'),
+(10, 'Wednesday', '09:00', '17:00'),
+(10, 'Thursday', '09:00', '17:00'),
+(10, 'Friday', '09:00', '17:00'),
+(10, 'Saturday', '10:00', '15:00'),
+(10, 'Sunday', '11:00', '16:00'),
+
+-- Godziny otwarcia dla biblioteki 11
+(11, 'Monday', '08:00', '16:00'),
+(11, 'Tuesday', '08:00', '16:00'),
+(11, 'Wednesday', '08:00', '16:00'),
+(11, 'Thursday', '08:00', '16:00'),
+(11, 'Friday', '08:00', '16:00'),
+(11, 'Saturday', '09:00', '14:00'),
+(11, 'Sunday', '10:00', '15:00'),
+
+-- Godziny otwarcia dla biblioteki 12
+(12, 'Monday', '09:30', '17:30'),
+(12, 'Tuesday', '09:30', '17:30'),
+(12, 'Wednesday', '09:30', '17:30'),
+(12, 'Thursday', '09:30', '17:30'),
+(12, 'Friday', '09:30', '17:30'),
+(12, 'Saturday', '10:30', '15:30'),
+(12, 'Sunday', '11:30', '16:30'),
+-- Godziny otwarcia dla biblioteki 13
+(13, 'Monday', '09:00', '17:00'),
+(13, 'Tuesday', '09:00', '17:00'),
+(13, 'Wednesday', '09:00', '17:00'),
+(13, 'Thursday', '09:00', '17:00'),
+(13, 'Friday', '09:00', '17:00'),
+(13, 'Saturday', '10:00', '15:00'),
+(13, 'Sunday', '11:00', '16:00'),
+
+-- Godziny otwarcia dla biblioteki 14
+(14, 'Monday', '08:00', '16:00'),
+(14, 'Tuesday', '08:00', '16:00'),
+(14, 'Wednesday', '08:00', '16:00'),
+(14, 'Thursday', '08:00', '16:00'),
+(14, 'Friday', '08:00', '16:00'),
+(14, 'Saturday', '09:00', '14:00'),
+(14, 'Sunday', '10:00', '15:00'),
+
+-- Godziny otwarcia dla biblioteki 15
+(15, 'Monday', '09:30', '17:30'),
+(15, 'Tuesday', '09:30', '17:30'),
+(15, 'Wednesday', '09:30', '17:30'),
+(15, 'Thursday', '09:30', '17:30'),
+(15, 'Friday', '09:30', '17:30'),
+(15, 'Saturday', '10:30', '15:30'),
+(15, 'Sunday', '11:30', '16:30'),
+-- Godziny otwarcia dla biblioteki 16
+(16, 'Monday', '09:00', '17:00'),
+(16, 'Tuesday', '09:00', '17:00'),
+(16, 'Wednesday', '09:00', '17:00'),
+(16, 'Thursday', '09:00', '17:00'),
+(16, 'Friday', '09:00', '17:00'),
+(16, 'Saturday', '10:00', '15:00'),
+(16, 'Sunday', '11:00', '16:00'),
+
+-- Godziny otwarcia dla biblioteki 17
+(17, 'Monday', '08:00', '16:00'),
+(17, 'Tuesday', '08:00', '16:00'),
+(17, 'Wednesday', '08:00', '16:00'),
+(17, 'Thursday', '08:00', '16:00'),
+(17, 'Friday', '08:00', '16:00'),
+(17, 'Saturday', '09:00', '14:00'),
+(17, 'Sunday', '10:00', '15:00'),
+
+-- Godziny otwarcia dla biblioteki 18
+(18, 'Monday', '09:30', '17:30'),
+(18, 'Tuesday', '09:30', '17:30'),
+(18, 'Wednesday', '09:30', '17:30'),
+(18, 'Thursday', '09:30', '17:30'),
+(18, 'Friday', '09:30', '17:30'),
+(18, 'Saturday', '10:30', '15:30'),
+(18, 'Sunday', '11:30', '16:30');
 
 INSERT INTO Employees (name, surename, phone_number, salary, working_hours_per_day, status_id, login, password, library_id) VALUES
 ('Jan', 'Kowalski', '123456789', 3000, 8, 1, 'jakowalski', 'haslo123', 1),
