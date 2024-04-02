@@ -471,7 +471,7 @@ VALUES
 (1, 'Thursday', '09:00', '17:00'),
 (1, 'Friday', '09:00', '17:00'),
 (1, 'Saturday', '10:00', '16:00'),
-(1, 'Sunday', '12:00', '15:00'),
+(1, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 2
 (2, 'Monday', '08:00', '16:00'),
@@ -480,7 +480,7 @@ VALUES
 (2, 'Thursday', '08:00', '16:00'),
 (2, 'Friday', '08:00', '16:00'),
 (2, 'Saturday', '09:00', '13:00'),
-(2, 'Sunday', '10:00', '14:00'),
+(2, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 3
 (3, 'Monday', '09:00', '17:00'),
@@ -489,7 +489,8 @@ VALUES
 (3, 'Thursday', '09:00', '17:00'),
 (3, 'Friday', '09:00', '17:00'),
 (3, 'Saturday', '09:00', '13:00'),
-(3, 'Sunday', '10:00', '14:00'),
+(3, 'Sunday', NULL, NULL),
+
 -- Godziny otwarcia dla biblioteki 4
 (4, 'Monday', '10:00', '18:00'),
 (4, 'Tuesday', '10:00', '18:00'),
@@ -497,7 +498,7 @@ VALUES
 (4, 'Thursday', '10:00', '18:00'),
 (4, 'Friday', '10:00', '18:00'),
 (4, 'Saturday', '11:00', '15:00'),
-(4, 'Sunday', '12:00', '16:00'),
+(4, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 5
 (5, 'Monday', '08:30', '16:30'),
@@ -506,7 +507,7 @@ VALUES
 (5, 'Thursday', '08:30', '16:30'),
 (5, 'Friday', '08:30', '16:30'),
 (5, 'Saturday', '09:30', '14:30'),
-(5, 'Sunday', '10:30', '15:30'),
+(5, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 6
 (6, 'Monday', '09:30', '17:30'),
@@ -515,7 +516,8 @@ VALUES
 (6, 'Thursday', '09:30', '17:30'),
 (6, 'Friday', '09:30', '17:30'),
 (6, 'Saturday', '10:30', '15:30'),
-(6, 'Sunday', '11:30', '16:30'),
+(6, 'Sunday', NULL, NULL),
+
 -- Godziny otwarcia dla biblioteki 7
 (7, 'Monday', '09:00', '17:00'),
 (7, 'Tuesday', '09:00', '17:00'),
@@ -523,7 +525,7 @@ VALUES
 (7, 'Thursday', '09:00', '17:00'),
 (7, 'Friday', '09:00', '17:00'),
 (7, 'Saturday', '10:00', '15:00'),
-(7, 'Sunday', '11:00', '16:00'),
+(7, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 8
 (8, 'Monday', '08:00', '16:00'),
@@ -532,7 +534,7 @@ VALUES
 (8, 'Thursday', '08:00', '16:00'),
 (8, 'Friday', '08:00', '16:00'),
 (8, 'Saturday', '09:00', '14:00'),
-(8, 'Sunday', '10:00', '15:00'),
+(8, 'Sunday',NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 9
 (9, 'Monday', '09:30', '17:30'),
@@ -541,7 +543,8 @@ VALUES
 (9, 'Thursday', '09:30', '17:30'),
 (9, 'Friday', '09:30', '17:30'),
 (9, 'Saturday', '10:30', '15:30'),
-(9, 'Sunday', '11:30', '16:30'),
+(9, 'Sunday', NULL, NULL),
+
 -- Godziny otwarcia dla biblioteki 10
 (10, 'Monday', '09:00', '17:00'),
 (10, 'Tuesday', '09:00', '17:00'),
@@ -549,7 +552,7 @@ VALUES
 (10, 'Thursday', '09:00', '17:00'),
 (10, 'Friday', '09:00', '17:00'),
 (10, 'Saturday', '10:00', '15:00'),
-(10, 'Sunday', '11:00', '16:00'),
+(10, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 11
 (11, 'Monday', '08:00', '16:00'),
@@ -558,7 +561,7 @@ VALUES
 (11, 'Thursday', '08:00', '16:00'),
 (11, 'Friday', '08:00', '16:00'),
 (11, 'Saturday', '09:00', '14:00'),
-(11, 'Sunday', '10:00', '15:00'),
+(11, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 12
 (12, 'Monday', '09:30', '17:30'),
@@ -567,7 +570,8 @@ VALUES
 (12, 'Thursday', '09:30', '17:30'),
 (12, 'Friday', '09:30', '17:30'),
 (12, 'Saturday', '10:30', '15:30'),
-(12, 'Sunday', '11:30', '16:30'),
+(12, 'Sunday', NULL,NULL),
+
 -- Godziny otwarcia dla biblioteki 13
 (13, 'Monday', '09:00', '17:00'),
 (13, 'Tuesday', '09:00', '17:00'),
@@ -575,7 +579,7 @@ VALUES
 (13, 'Thursday', '09:00', '17:00'),
 (13, 'Friday', '09:00', '17:00'),
 (13, 'Saturday', '10:00', '15:00'),
-(13, 'Sunday', '11:00', '16:00'),
+(13, 'Sunday', NULL,NULL),
 
 -- Godziny otwarcia dla biblioteki 14
 (14, 'Monday', '08:00', '16:00'),
@@ -584,7 +588,7 @@ VALUES
 (14, 'Thursday', '08:00', '16:00'),
 (14, 'Friday', '08:00', '16:00'),
 (14, 'Saturday', '09:00', '14:00'),
-(14, 'Sunday', '10:00', '15:00'),
+(14, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 15
 (15, 'Monday', '09:30', '17:30'),
@@ -593,7 +597,8 @@ VALUES
 (15, 'Thursday', '09:30', '17:30'),
 (15, 'Friday', '09:30', '17:30'),
 (15, 'Saturday', '10:30', '15:30'),
-(15, 'Sunday', '11:30', '16:30'),
+(15, 'Sunday', NULL, NULL),
+
 -- Godziny otwarcia dla biblioteki 16
 (16, 'Monday', '09:00', '17:00'),
 (16, 'Tuesday', '09:00', '17:00'),
@@ -601,7 +606,7 @@ VALUES
 (16, 'Thursday', '09:00', '17:00'),
 (16, 'Friday', '09:00', '17:00'),
 (16, 'Saturday', '10:00', '15:00'),
-(16, 'Sunday', '11:00', '16:00'),
+(16, 'Sunday', NULL, NULL),
 
 -- Godziny otwarcia dla biblioteki 17
 (17, 'Monday', '08:00', '16:00'),
@@ -610,7 +615,7 @@ VALUES
 (17, 'Thursday', '08:00', '16:00'),
 (17, 'Friday', '08:00', '16:00'),
 (17, 'Saturday', '09:00', '14:00'),
-(17, 'Sunday', '10:00', '15:00'),
+(17, 'Sunday', NULL,NULL),
 
 -- Godziny otwarcia dla biblioteki 18
 (18, 'Monday', '09:30', '17:30'),
@@ -619,7 +624,7 @@ VALUES
 (18, 'Thursday', '09:30', '17:30'),
 (18, 'Friday', '09:30', '17:30'),
 (18, 'Saturday', '10:30', '15:30'),
-(18, 'Sunday', '11:30', '16:30');
+(18, 'Sunday', NULL, NULL);
 
 INSERT INTO Employees (name, surename, phone_number, salary, working_hours_per_day, status_id, login, password, library_id) VALUES
 ('Jan', 'Kowalski', '123456789', 3000, 8, 1, 'jakowalski', 'haslo123', 1),
