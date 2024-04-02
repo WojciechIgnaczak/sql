@@ -107,7 +107,6 @@ library_id INT PRIMARY KEY IDENTITY (1,1),
 name VARCHAR(100),
 location_id INT,
 FOREIGN KEY (location_id) REFERENCES Locations(location_id),
-FOREIGN KEY (open_hour_id) REFERENCES Open_hours(open_hour_id),
 );
 
 CREATE TABLE Open_hours_per_day (
@@ -205,22 +204,22 @@ GO
 
 CREATE VIEW Book_view AS
 SELECT
-books.book_id,
-books.title,
-books.description,
-books.publishing_year,
-books.numbers_of_books,
-publishing_houses.name AS publishing_house,
-categories.name AS category,
-reviews.mark,
-reviews.review
+Books.book_id,
+Books.title,
+Books.description,
+Books.publishing_year,
+Books.numbers_of_books,
+Publishing_houses.name AS publishing_house,
+Categories.name AS category,
+Reviews.mark,
+Reviews.review
 FROM Books
 LEFT JOIN 
-publishing_houses ON books.publishing_house_id = publishing_houses.publishing_house_id
+Publishing_houses ON Books.publishing_house_id = Publishing_houses.publishing_house_id
 LEFT JOIN
-categories ON books.category_id = categories.category_id
+Categories ON Books.category_id = Categories.category_id
 LEFT JOIN
-reviews ON books.book_id = reviews.book_id;
+Reviews ON Books.book_id = Reviews.book_id;
 
 GO
 
@@ -231,6 +230,7 @@ Users.name,
 Users.email,
 Users.phone_number,
 Users.status_id,
+Status.kind_of_status,
 Users.indeks,
 Books.title,
 Rents.rent_id,
@@ -243,8 +243,9 @@ Rents ON Users.user_id = Rents.user_id
 LEFT JOIN
 Elementary_books ON Rents.elementary_book_id = Elementary_books.elementary_book_id
 LEFT JOIN
-Books ON Elementary_books.book_id = Books.book_id;
-
+Books ON Elementary_books.book_id = Books.book_id
+LEFT JOIN
+Status ON Users.status_id=Status.status_id;
 
 GO
 
