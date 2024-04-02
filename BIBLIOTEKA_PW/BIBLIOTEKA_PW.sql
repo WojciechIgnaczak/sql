@@ -266,3 +266,24 @@ JOIN
 Locations ON Libraries.location_id = Locations.location_id
 LEFT JOIN
 Open_hours_per_day ON Libraries.library_id = Open_hours_per_day.library_id;
+
+GO
+
+CREATE VIEW Elementary_book_view AS
+SELECT
+Elementary_books.elementary_book_id,
+Elementary_books.book_id,
+Elementary_books.library_id,
+Elementary_books.status_id,
+Elementary_books.wear,
+Status.kind_of_status AS status,
+Books.title AS book_title,
+Libraries.name AS library_name
+FROM 
+Elementary_books
+JOIN 
+Status ON Elementary_books.status_id = Status.status_id
+JOIN 
+Books ON Elementary_books.book_id = Books.book_id
+JOIN 
+Libraries ON Elementary_books.library_id = Libraries.library_id;
